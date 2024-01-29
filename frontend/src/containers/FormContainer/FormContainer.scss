@@ -1,0 +1,71 @@
+@import "../../assets/styles/variables.scss";
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-bottom: 2em;
+
+  &__info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5em;
+
+    &--addLine {
+      padding: 0.5em;
+      width: fit-content;
+      border: none;
+      background-color: $color-tertiary;
+      color: white;
+      font-weight: bold;
+      border-radius: 0.5em;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #e5e5e5;
+        color: black;
+      }
+    }
+  }
+
+  &__legal {
+    margin-top: 1em;
+  }
+
+  &--export {
+    padding: 0.5em;
+    width: 100%;
+    border: none;
+    background-color: #0c7a02;
+    color: white;
+    font-weight: bold;
+    border-radius: 0.5em;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+
+    &::before {
+      content: "✉️";
+      margin-right: 0.5em;
+    }
+
+    &:disabled {
+      background-color: #e5e5e5;
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &::before {
+        content: "🚫";
+        margin-right: 0.5em;
+      }
+    }
+  }
+}
+
+.delete-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
