@@ -17,6 +17,9 @@ app.get("/", (req, res) => {
   res.send("Hello World");
 });
 app.use("/sendmail", sendmail);
+app.get("/sendmail", (req, res) => {
+  res.send("Hello World");
+});
 
 const port = process.env.PORT || 5000;
 

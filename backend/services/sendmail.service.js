@@ -49,7 +49,7 @@ async function sendArticleForm(data) {
 
     await transport.sendMail(message);
   } catch (error) {
-    throw new Error(error);
+    console.log(error);
   }
 }
 
