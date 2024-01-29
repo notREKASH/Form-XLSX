@@ -14,12 +14,9 @@ app.use(
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Private API About Chez Valerie Vide Grenier Permanent");
 });
 app.use("/sendmail", sendmail);
-app.get("/sendmail", (req, res) => {
-  res.send("Hello World");
-});
 
 const port = process.env.PORT || 5000;
 
