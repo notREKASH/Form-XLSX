@@ -45,7 +45,7 @@ export default async function exportToExcelAndSendEmail(
 
   try {
     const response = await toast.promise(
-      axios.post(`http://localhost:5000/sendmail/contact`, formData),
+      axios.post(`${import.meta.env.VITE_API_URL}/sendmail/contact`, formData),
       {
         pending: "Envoi de la fiche article en cours...",
       }
