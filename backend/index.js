@@ -12,6 +12,10 @@ app.use(
 );
 
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Hello World");
+});
 app.use("/sendmail", sendmail);
 
 const port = process.env.PORT || 5000;
