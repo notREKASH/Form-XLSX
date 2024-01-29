@@ -3,12 +3,21 @@ const { formattedDate, formattedTime } = require("../helpers/dateTime");
 
 // This is the configuration for nodemailer to use Mailtrap.io as the SMTP server
 
-const transport = nodemailer.createTransport({
-  host: "live.smtp.mailtrap.io",
-  port: 587,
+// const transport = nodemailer.createTransport({
+//   host: "live.smtp.mailtrap.io",
+//   port: 587,
+//   auth: {
+//     user: process.env.MAILTRAP_USER,
+//     pass: process.env.MAILTRAP_PASS,
+//   },
+// });
+
+var transport = nodemailer.createTransport({
+  host: "sandbox.smtp.mailtrap.io",
+  port: 2525,
   auth: {
-    user: process.env.MAILTRAP_USER,
-    pass: process.env.MAILTRAP_PASS,
+    user: "cfdfa0b7e8cf4b",
+    pass: "8b23ab4d165a3a",
   },
 });
 

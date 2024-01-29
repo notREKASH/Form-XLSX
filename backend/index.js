@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const sendmail = require("./routes/sendmail.router");
 const cors = require("cors");
+require("dotenv").config();
 
 app.use(
   cors({
@@ -9,8 +10,8 @@ app.use(
     credentials: true,
   })
 );
-app.use(express.json());
 
+app.use(express.json());
 app.use("/sendmail", sendmail);
 
 const port = process.env.PORT || 5000;
