@@ -1,23 +1,15 @@
 const nodemailer = require("nodemailer");
 const { formattedDate, formattedTime } = require("../helpers/dateTime");
+require("dotenv").config();
 
 // This is the configuration for nodemailer to use Mailtrap.io as the SMTP server
 
-// const transport = nodemailer.createTransport({
-//   host: "live.smtp.mailtrap.io",
-//   port: 587,
-//   auth: {
-//     user: process.env.MAILTRAP_USER,
-//     pass: process.env.MAILTRAP_PASS,
-//   },
-// });
-
-var transport = nodemailer.createTransport({
-  host: "sandbox.smtp.mailtrap.io",
-  port: 2525,
+const transport = nodemailer.createTransport({
+  host: "live.smtp.mailtrap.io",
+  port: 587 || 2525 || 25,
   auth: {
-    user: "cfdfa0b7e8cf4b",
-    pass: "8b23ab4d165a3a",
+    user: `${process.env.MAILTRAP_USERNAME}`,
+    pass: `${process.env.MAILTRAP_PASSWORD}`,
   },
 });
 
@@ -38,13 +30,13 @@ async function sendArticleForm(data) {
       html: `
       <p>Fiche article de ${firstName} ${lastName}</p>
       <p>Envoyé le ${date} à ${timestamp} depuis le formulaire de fiche article</p>
-      <p>Les CGV ont été acceptées: ${cgv}</p>
+      <p>Le client atteste sur l’honneur que les informations renseignées sont exactes et qu'il est responsables des erreurs de saisie: ${cgv}</p>
       <p>La fiche article est en pièce jointe</p>
       `,
       text: `
         Fiche article de ${firstName} ${lastName}
         Envoyé le ${date} à ${timestamp} depuis le formulaire de fiche article
-        Les CGV ont été acceptées: ${cgv}
+        Le client atteste sur l’honneur que les informations renseignées sont exactes et qu'il est responsables des erreurs de saisie: ${cgv}
         La fiche article est en pièce jointe
         `,
       attachments: [
