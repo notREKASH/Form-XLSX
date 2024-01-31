@@ -112,6 +112,16 @@ export default function FormContainer() {
     }
   };
 
+  for (let i = 0; i < 30; i++) {
+    rowData[i] = {
+      ...rowData[i],
+      familleProduit: `Vêtement ${i}`,
+      designation: `T-shirt ${i}`,
+      quantitee: "1",
+      prix: `${Math.floor(Math.random() * 100) + 1}`,
+    };
+  }
+
   return (
     <>
       <div className="ag-theme-quartz" style={{ height: 500, width: "100%" }}>

@@ -9,7 +9,30 @@ export default async function exportToExcelAndSendEmail(
   prenom,
   cgv
 ) {
-  const dataWithFourEmptyRows = [{}, {}, {}, ...data];
+  const dataWithFourEmptyRows = [
+    {},
+    {},
+    {},
+    ...data,
+    {
+      familleProduit: "Cellule vide",
+      designation: "Pour le logiciel de caisse",
+      quantitee: "",
+      prix: "25300",
+    },
+    {
+      familleProduit: "Cellule vide",
+      designation: "Pour le logiciel de caisse",
+      quantitee: "",
+      prix: "25300",
+    },
+    {
+      familleProduit: "Cellule vide",
+      designation: "Pour le logiciel de caisse",
+      quantitee: "",
+      prix: "25300",
+    },
+  ];
 
   // Créer un nouveau classeur
   const worksheet = XLSX.utils.json_to_sheet(dataWithFourEmptyRows);
