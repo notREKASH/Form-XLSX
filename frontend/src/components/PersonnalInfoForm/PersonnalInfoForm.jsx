@@ -47,7 +47,7 @@ export default function PersonnalInfoForm({ nom, setNom, prenom, setPrenom }) {
         Pour envoyer votre fiche article, cliquez sur le bouton ci-dessous. Si
         il ne s&rsquo;affiche pas, ou qu&rsquo;il est désactivé, vérifiez que
         vous avez bien rempli les champs ci-dessus, et que vous avez ajouté au
-        moins une ligne dans le tableau ci-dessus
+        moins une ligne dans le tableau d&rsquo;article.
       </p>
     </form>
   );

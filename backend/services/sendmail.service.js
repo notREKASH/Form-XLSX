@@ -25,7 +25,7 @@ async function sendArticleForm(data) {
 
     const message = {
       from: "no-reply@chezvalerie-videgrenier.fr",
-      to: "benmehal.joris@gmail.com",
+      to: "magasin@chezvalerie-videgrenier.fr",
       subject: `Fiche article de ${firstName} ${lastName}`,
       html: `
       <p>Fiche article de ${firstName} ${lastName}</p>
@@ -49,7 +49,9 @@ async function sendArticleForm(data) {
 
     await transport.sendMail(message);
   } catch (error) {
-    console.log(error);
+    throw new Error(
+      "Impossible d'envoyer le mail, contactez moi au 06 33 67 77 81"
+    );
   }
 }
 

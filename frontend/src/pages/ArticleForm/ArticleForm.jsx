@@ -1,8 +1,22 @@
 import FormContainer from "../../containers/FormContainer/FormContainer";
 import "./ArticleForm.scss";
 import LogoChezValerie from "../../assets/images/logo-chez-valerie.avif";
+import { useEffect } from "react";
 
 export default function ArticleForm() {
+  useEffect(() => {
+    const handleBeforeUnload = (e) => {
+      e.preventDefault();
+      e.returnValue =
+        "Si vous quittez cette page, les données saisies seront perdues.";
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   return (
     <>
       <div className="container">
@@ -18,12 +32,12 @@ export default function ArticleForm() {
           </h3>
 
           <div className="container__explication__tuto">
-            <p> Voici un exemple de ce que vous devez remplir :</p>
+            <p>Voici un exemple de ce que vous devez remplir :</p>
             <ul className="container__explication__tuto--liste">
               <li>
                 <strong>1. Famille de Produit :</strong> Renseignez la catégorie
-                de votre article, exemple CD = Audio ou T-Shirt = Vêtement
-                adulte.
+                de votre article, exemple CD = Audio ou T-Shirt Homme = Vêtement
+                homme.
               </li>
               <li>
                 <strong>2. Désignation :</strong> La description doit contenir
