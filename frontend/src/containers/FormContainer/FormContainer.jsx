@@ -118,6 +118,10 @@ export default function FormContainer() {
         <AgGridReact columnDefs={columnDefs} rowData={rowData}></AgGridReact>
       </div>
       <div className="form-container">
+        <p className="form-container--mobileInfo">
+          <span>📱</span> Sur téléphone, pensez à double-cliquer pour modifier
+          une cellule.
+        </p>
         <div className="form-container__info">
           <p>Nombre d&rsquo;article total: {filteredData.length}</p>
           <button

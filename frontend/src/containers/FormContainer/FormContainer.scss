@@ -6,6 +6,14 @@
   gap: 1em;
   margin-bottom: 2em;
 
+  &--mobileInfo {
+    font-style: italic;
+
+    span {
+      font-style: normal;
+    }
+  }
+
   &__info {
     display: flex;
     align-items: center;
