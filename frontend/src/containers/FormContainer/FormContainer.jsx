@@ -103,8 +103,8 @@ export default function FormContainer() {
       setRowData([
         {
           id: "exemple",
-          familleProduit: "PEM (petit électroménager)",
-          designation: "Blender en verre (neuf)",
+          familleProduit: "Vêtement homme",
+          designation: "T-shirt nike, blanc et rouge, taille M",
           quantitee: "1",
           prix: "15",
         },

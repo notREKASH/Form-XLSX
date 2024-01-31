@@ -9,7 +9,6 @@ export default async function exportToExcelAndSendEmail(
   prenom,
   cgv
 ) {
-  // Ajouter 4 lignes vides au début du fichier Excel
   const dataWithFourEmptyRows = [{}, {}, {}, ...data];
 
   // Créer un nouveau classeur
@@ -17,12 +16,12 @@ export default async function exportToExcelAndSendEmail(
 
   // Créer un nouveau classeur et ajouter la feuille de calcul
   const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Sheet1");
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Fiche article");
 
-  // Convertir en chaîne Base64
+  // Convertir le classeur en fichier Excel
   const excelBase64 = XLSX.write(workbook, {
-    bookType: "xlsx",
     type: "base64",
+    bookType: "xlsx",
   });
 
   // Nom du fichier
@@ -36,7 +35,6 @@ export default async function exportToExcelAndSendEmail(
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   );
 
-  // Créer un objet FormData
   const formData = new FormData();
   formData.append("lastName", nom);
   formData.append("firstName", prenom);
