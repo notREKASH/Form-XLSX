@@ -1,11 +1,12 @@
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import exportToExcelAndSendEmail from "../../components/SendMailXlsx/SendMailXlsx";
 import "./FormContainer.scss";
 import PersonnalInfoForm from "../../components/PersonnalInfoForm/PersonnalInfoForm";
 import isCellEditable from "../../helpers/isCellEditable";
+import { toast } from "react-toastify";
 
 export default function FormContainer() {
   const [rowData, setRowData] = useState([
@@ -13,8 +14,8 @@ export default function FormContainer() {
       id: "exemple",
       familleProduit: "Vêtement homme",
       designation: "T-shirt nike, blanc et rouge, taille M",
-      quantitee: "1",
-      prix: "15",
+      quantitee: 1,
+      prix: 15,
     },
   ]);
 
@@ -22,11 +23,13 @@ export default function FormContainer() {
     {
       headerName: "Famille de produit",
       field: "familleProduit",
+      width: 250,
       sortable: true,
       editable: isCellEditable,
     },
     {
       headerName: "Désignation",
+      width: 290,
       field: "designation",
       sortable: true,
       editable: isCellEditable,
@@ -34,21 +37,26 @@ export default function FormContainer() {
     {
       headerName: "Quantité",
       field: "quantitee",
+      width: 88,
       sortable: true,
       editable: isCellEditable,
+      cellDataType: "number",
     },
     {
       headerName: "Prix",
       field: "prix",
+      width: 84,
       sortable: true,
       editable: isCellEditable,
       valueFormatter: (params) => {
         return `${params.value} €`;
       },
+      cellDataType: "number",
     },
     {
       headerName: "Supprimer",
       field: "delete",
+      width: 100,
       editable: false,
       cellRenderer: (params) => (
         <button
@@ -82,8 +90,8 @@ export default function FormContainer() {
       {
         familleProduit: "",
         designation: "",
-        quantitee: "",
-        prix: "",
+        quantitee: null,
+        prix: null,
       },
     ]);
   };
@@ -105,12 +113,38 @@ export default function FormContainer() {
           id: "exemple",
           familleProduit: "Vêtement homme",
           designation: "T-shirt nike, blanc et rouge, taille M",
-          quantitee: "1",
-          prix: "15",
+          quantitee: 1,
+          prix: 15,
         },
       ]);
     }
   };
+
+  useEffect(() => {
+    if (filteredData.length === 30) {
+      toast.warn(
+        "Vous avez déjà ajouté 30 articles, faites attention à ce qu'il passse sur votre stand !",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+        }
+      );
+    } else if (filteredData.length === 50) {
+      toast.warn(
+        "Vous avez déjà ajouté 50 articles, faites attention à ce qu'il passse sur votre stand, si vous avez un doute n'hésitez pas à nous contacter !",
+        {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          draggable: true,
+        }
+      );
+    }
+  }, [filteredData.length]);
 
   return (
     <>
