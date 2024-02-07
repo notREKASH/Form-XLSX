@@ -122,11 +122,12 @@ export default function FormContainer() {
     setRowData([
       ...rowData,
       {
-        id: Math.random().toString(36).substring(2, 9),
         familleProduit: "",
         designation: "",
         quantitee: null,
         prix: null,
+        // Id unique pour chaque ligne placer après le prix pour ne pas être pris en compte par le logiciel caisse
+        id: Math.random().toString(36).substring(2, 9),
       },
     ]);
   };
