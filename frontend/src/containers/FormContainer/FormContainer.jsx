@@ -9,6 +9,8 @@ import isCellEditable from "../../helpers/isCellEditable";
 import { toast } from "react-toastify";
 
 export default function FormContainer() {
+  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [emptyCells, setEmptyCells] = useState([]);
   const [rowData, setRowData] = useState([
     {
       id: "exemple",
@@ -26,6 +28,14 @@ export default function FormContainer() {
       width: 250,
       sortable: true,
       editable: isCellEditable,
+      cellClassRules: {
+        "cellule-rouge": (params) => {
+          const rowEmpty = emptyCells.find((cell) => cell === params.data.id);
+          if (rowEmpty && params.data.familleProduit === "") {
+            return true;
+          }
+        },
+      },
     },
     {
       headerName: "Désignation",
@@ -33,6 +43,14 @@ export default function FormContainer() {
       field: "designation",
       sortable: true,
       editable: isCellEditable,
+      cellClassRules: {
+        "cellule-rouge": (params) => {
+          const rowEmpty = emptyCells.find((cell) => cell === params.data.id);
+          if (rowEmpty && params.data.designation === "") {
+            return true;
+          }
+        },
+      },
     },
     {
       headerName: "Quantité",
@@ -41,6 +59,14 @@ export default function FormContainer() {
       sortable: true,
       editable: isCellEditable,
       cellDataType: "number",
+      cellClassRules: {
+        "cellule-rouge": (params) => {
+          const rowEmpty = emptyCells.find((cell) => cell === params.data.id);
+          if (rowEmpty && params.data.quantitee === null) {
+            return true;
+          }
+        },
+      },
     },
     {
       headerName: "Prix",
@@ -52,6 +78,14 @@ export default function FormContainer() {
         return `${params.value} €`;
       },
       cellDataType: "number",
+      cellClassRules: {
+        "cellule-rouge": (params) => {
+          const rowEmpty = emptyCells.find((cell) => cell === params.data.id);
+          if (rowEmpty && params.data.prix === null) {
+            return true;
+          }
+        },
+      },
     },
     {
       headerName: "Supprimer",
@@ -88,6 +122,7 @@ export default function FormContainer() {
     setRowData([
       ...rowData,
       {
+        id: Math.random().toString(36).substring(2, 9),
         familleProduit: "",
         designation: "",
         quantitee: null,
@@ -98,25 +133,32 @@ export default function FormContainer() {
 
   // Fonction pour envoyer le mail
   const handleSendMail = async () => {
-    const result = await exportToExcelAndSendEmail(
-      filteredData,
-      nom,
-      prenom,
-      cgv
-    );
-    if (result) {
-      setNom("");
-      setPrenom("");
-      setCgv(false);
-      setRowData([
-        {
-          id: "exemple",
-          familleProduit: "Vêtement homme",
-          designation: "T-shirt nike, blanc et rouge, taille M",
-          quantitee: 1,
-          prix: 15,
-        },
-      ]);
+    setSubmitAttempted(false);
+    // Vérifier si les cellules sont vides
+    let tempEmptyCells = [];
+    filteredData.forEach((row) => {
+      if (
+        row.familleProduit === "" ||
+        row.designation === "" ||
+        row.quantitee === null ||
+        row.prix === null
+      ) {
+        tempEmptyCells.push(row.id);
+      }
+    });
+
+    setEmptyCells(tempEmptyCells);
+    setSubmitAttempted(true);
+
+    if (tempEmptyCells.length > 0) {
+      toast.error("Vous avez des cellules vides, veuillez les remplir.", {
+        position: "top-center",
+        autoClose: 10000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        draggable: true,
+      });
+      return;
     }
   };
 
@@ -145,6 +187,28 @@ export default function FormContainer() {
       );
     }
   }, [filteredData.length]);
+
+  useEffect(() => {
+    if (emptyCells.length === 0 && submitAttempted) {
+      const result = exportToExcelAndSendEmail(filteredData, nom, prenom, cgv);
+      if (result) {
+        setNom("");
+        setPrenom("");
+        setCgv(false);
+        setRowData([
+          {
+            id: "exemple",
+            familleProduit: "Vêtement homme",
+            designation: "T-shirt nike, blanc et rouge, taille M",
+            quantitee: 1,
+            prix: 15,
+          },
+        ]);
+        setSubmitAttempted(false);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [emptyCells, submitAttempted]);
 
   return (
     <>
