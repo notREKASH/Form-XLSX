@@ -106,12 +106,19 @@ export default function FormContainer() {
 
   const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [cgv, setCgv] = useState(false);
 
   const filteredData = rowData.filter((row) => row.id !== "exemple");
 
   const isDesactivated =
-    filteredData.length === 0 || nom === "" || prenom === "" || !cgv;
+    filteredData.length === 0 ||
+    nom === "" ||
+    prenom === "" ||
+    email === "" ||
+    phone === "" ||
+    !cgv;
 
   const handleChangeCgv = () => {
     setCgv(!cgv);
@@ -163,6 +170,7 @@ export default function FormContainer() {
     }
   };
 
+  // Vérifier si le nombre d'articles est supérieur à 30 ou 50
   useEffect(() => {
     if (filteredData.length === 30) {
       toast.warn(
@@ -189,23 +197,38 @@ export default function FormContainer() {
     }
   }, [filteredData.length]);
 
+  // Vérifier si toutes les cellules sont remplies et envoyer le mail
   useEffect(() => {
     if (emptyCells.length === 0 && submitAttempted) {
-      const result = exportToExcelAndSendEmail(filteredData, nom, prenom, cgv);
-      if (result) {
-        setNom("");
-        setPrenom("");
-        setCgv(false);
-        setRowData([
-          {
-            id: "exemple",
-            familleProduit: "Vêtement homme",
-            designation: "T-shirt nike, blanc et rouge, taille M",
-            quantitee: 1,
-            prix: 15,
-          },
-        ]);
-        setSubmitAttempted(false);
+      const result = exportToExcelAndSendEmail(
+        filteredData,
+        nom,
+        prenom,
+        email,
+        phone,
+        cgv
+      );
+      if (result.then) {
+        result.then((res) => {
+          if (res) {
+            setNom("");
+            setPrenom("");
+            setEmail("");
+            setPhone("");
+            setCgv(false);
+            setRowData([
+              {
+                id: "exemple",
+                familleProduit: "Vêtement homme",
+                designation: "T-shirt nike, blanc et rouge, taille M",
+                quantitee: 1,
+                prix: 15,
+              },
+            ]);
+            setSubmitAttempted(false);
+            setEmptyCells([]);
+          }
+        });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -234,6 +257,10 @@ export default function FormContainer() {
           setNom={setNom}
           prenom={prenom}
           setPrenom={setPrenom}
+          email={email}
+          setEmail={setEmail}
+          phone={phone}
+          setPhone={setPhone}
         />
         <div className="form-container__legal">
           <label htmlFor="cgv">

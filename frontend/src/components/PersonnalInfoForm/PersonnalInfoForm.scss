@@ -24,48 +24,50 @@
     }
   }
 
-  div {
-    margin-top: 1em;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    column-gap: 1em;
-    row-gap: 0.5em;
+  &--input {
+    div {
+      margin-top: 1em;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 1em;
+      row-gap: 0.5em;
 
-    p {
-      span {
-        font-weight: bold;
-        color: $required-color;
+      p {
+        span {
+          font-weight: bold;
+          color: $required-color;
+        }
+
+        grid-column: 1 / -1;
+        font-size: 0.8rem;
+        font-style: italic;
+        text-align: left;
       }
 
-      grid-column: 1 / -1;
-      font-size: 0.8rem;
-      font-style: italic;
-      text-align: left;
-    }
+      label {
+        font-weight: 600;
+        text-align: left;
 
-    label {
-      font-weight: 600;
-      text-align: left;
-
-      &::after {
-        content: " *";
-        color: $required-color;
+        &::after {
+          content: " *";
+          color: $required-color;
+        }
       }
-    }
 
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 0.75em 0.5em;
-      border: none;
-      border-radius: 0.5em;
-      background-color: #ffffff;
-      transition: all 0.2s ease-in-out;
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.75em 0.5em;
+        border: none;
+        border-radius: 0.5em;
+        background-color: #ffffff;
+        transition: all 0.2s ease-in-out;
 
-      &:focus {
-        outline: none;
-        background-color: $color-tertiary;
-        color: white;
+        &:focus {
+          outline: none;
+          background-color: $color-tertiary;
+          color: white;
+        }
       }
     }
   }

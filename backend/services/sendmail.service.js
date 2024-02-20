@@ -17,7 +17,7 @@ const transport = nodemailer.createTransport({
 
 async function sendArticleForm(data) {
   try {
-    const { firstName, lastName, cgv } = data.body;
+    const { firstName, lastName, email, phone, cgv } = data.body;
     const attachment = data.file;
 
     const date = formattedDate;
@@ -26,15 +26,18 @@ async function sendArticleForm(data) {
     const message = {
       from: "no-reply@chezvalerie-videgrenier.fr",
       to: "magasin@chezvalerie-videgrenier.fr",
+      replyTo: email,
       subject: `Fiche article de ${firstName} ${lastName}`,
       html: `
       <p>Fiche article de ${firstName} ${lastName}</p>
+      <p>Information de contact: ${email} - ${phone}</p>
       <p>Envoyé le ${date} à ${timestamp} depuis le formulaire de fiche article</p>
       <p>Le client atteste sur l’honneur que les informations renseignées sont exactes et qu'il est responsables des erreurs de saisie: ${cgv}</p>
       <p>La fiche article est en pièce jointe</p>
       `,
       text: `
         Fiche article de ${firstName} ${lastName}
+        Information de contact: ${email} - ${phone}
         Envoyé le ${date} à ${timestamp} depuis le formulaire de fiche article
         Le client atteste sur l’honneur que les informations renseignées sont exactes et qu'il est responsables des erreurs de saisie: ${cgv}
         La fiche article est en pièce jointe

@@ -7,6 +7,8 @@ export default async function exportToExcelAndSendEmail(
   data,
   nom,
   prenom,
+  email,
+  phone,
   cgv
 ) {
   const dataWithFourEmptyRows = [
@@ -61,6 +63,8 @@ export default async function exportToExcelAndSendEmail(
   const formData = new FormData();
   formData.append("lastName", nom);
   formData.append("firstName", prenom);
+  formData.append("email", email);
+  formData.append("phone", phone);
   formData.append("cgv", cgv);
   formData.append("attachment", excelBlob, emailData.fileName);
 
@@ -78,5 +82,6 @@ export default async function exportToExcelAndSendEmail(
   } catch (error) {
     const message = error.response.data.message;
     toast.error(message);
+    return false;
   }
 }
