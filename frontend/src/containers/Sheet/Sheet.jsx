@@ -9,12 +9,15 @@ import QuestionIco from "../../assets/images/question-ico.png";
 import ImportIco from "../../assets/images/import-ico.png";
 import DeleteIco from "../../assets/images/delete-ico.png";
 import "./Sheet.scss";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function Sheet({
   setData,
   emptyCells,
   handleSaveSheet,
   display,
+  setDisplay,
 }) {
   // Sheet data
   const [rowData, setRowData] = useState([
@@ -38,7 +41,10 @@ export default function Sheet({
       cellClassRules: {
         "cellule-rouge": (params) => {
           const rowEmpty = emptyCells.find((cell) => cell === params.data.id);
-          if (rowEmpty && params.data.familleProduit === "") {
+          if (
+            (rowEmpty && params.data.familleProduit === "") ||
+            params.data.familleProduit === null
+          ) {
             return true;
           }
         },
@@ -53,7 +59,10 @@ export default function Sheet({
       cellClassRules: {
         "cellule-rouge": (params) => {
           const rowEmpty = emptyCells.find((cell) => cell === params.data.id);
-          if (rowEmpty && params.data.designation === "") {
+          if (
+            (rowEmpty && params.data.designation === "") ||
+            params.data.designation === null
+          ) {
             return true;
           }
         },
@@ -129,18 +138,31 @@ export default function Sheet({
   // Function for importing a sheet
   const importSheet = () => {
     const data = JSON.parse(localStorage.getItem("sheetData"));
-    setRowData(data);
+    if (data) {
+      setRowData(data);
+      toast.success("Fiche importée avec succès");
+    }
+  };
+
+  // Function for deleting a sheet
+  const deleteSheet = () => {
+    localStorage.removeItem("sheetData");
+    toast.success("Fiche supprimée");
+    setRowData([
+      {
+        id: "exemple",
+        familleProduit: "Vêtement homme",
+        designation: "T-shirt nike, blanc et rouge, taille M",
+        quantitee: 1,
+        prix: 15,
+      },
+    ]);
+    setDisplay(false);
   };
 
   useEffect(() => {
     setData(rowData);
   }, [rowData, setData]);
-
-  useEffect(() => {
-    if (display) {
-      importSheet();
-    }
-  }, [display]);
 
   //   Filtered rowData
   const filteredData = rowData.filter((data) => data.id !== "exemple");
@@ -159,9 +181,11 @@ export default function Sheet({
           <div className="form-container__btns__fl">
             <div className="form-container__btns__fl__help">
               <img src={DocIco} alt="Icon document" />
-              <button className="form-container__info--addLine">
-                Comment remplir la fiche ?
-              </button>
+              <Link to="/app-usage">
+                <button className="form-container__info--addLine">
+                  Comment remplir la fiche ?
+                </button>
+              </Link>
             </div>
             <div className="form-container__btns__fl__info">
               <p>Nb. d&rsquo;article : {filteredData.length}</p>
@@ -188,10 +212,7 @@ export default function Sheet({
                 <p>Elle n&rsquo;est plus d&rsquo;actualité ?</p>
                 <button
                   className="form-container__info--addLine"
-                  onClick={() => {
-                    localStorage.removeItem("sheetData");
-                    setRowData([]);
-                  }}>
+                  onClick={deleteSheet}>
                   Supprimer
                 </button>
               </div>
@@ -221,4 +242,5 @@ Sheet.propTypes = {
   emptyCells: Proptypes.array.isRequired,
   handleSaveSheet: Proptypes.func.isRequired,
   display: Proptypes.bool.isRequired,
+  setDisplay: Proptypes.func.isRequired,
 };

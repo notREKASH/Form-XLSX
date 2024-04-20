@@ -8,54 +8,26 @@ export default async function exportToExcelAndSendEmail(
   nom,
   prenom,
   email,
-  phone,
   countryCode,
+  phone,
   cgv
 ) {
-  const dataWithFourEmptyRows = [
-    {},
-    {},
-    {},
-    ...data,
-    {
-      familleProduit: "Cellule vide",
-      designation: "Pour le logiciel de caisse",
-      quantitee: "",
-      prix: "25300",
-    },
-    {
-      familleProduit: "Cellule vide",
-      designation: "Pour le logiciel de caisse",
-      quantitee: "",
-      prix: "25300",
-    },
-    {
-      familleProduit: "Cellule vide",
-      designation: "Pour le logiciel de caisse",
-      quantitee: "",
-      prix: "25300",
-    },
-  ];
+  const dataWithFourEmptyRows = [{}, {}, {}, ...data];
 
-  // Créer un nouveau classeur
   const worksheet = XLSX.utils.json_to_sheet(dataWithFourEmptyRows);
 
-  // Créer un nouveau classeur et ajouter la feuille de calcul
   const workbook = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(workbook, worksheet, "Fiche article");
 
-  // Convertir le classeur en fichier Excel
   const excelBase64 = XLSX.write(workbook, {
     type: "base64",
     bookType: "xlsx",
   });
 
-  // Nom du fichier
   const emailData = {
     fileName: `Fiche_article_${nom}_${prenom}.xlsx`,
   };
 
-  // Créer un Blob avec des données en Base64
   const excelBlob = base64ToBlob(
     excelBase64,
     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
@@ -82,7 +54,7 @@ export default async function exportToExcelAndSendEmail(
     toast.success(message);
     return true;
   } catch (error) {
-    const message = error.response.data.message;
+    const message = error.response.data.message || "Une erreur est survenue.";
     toast.error(message);
     return false;
   }

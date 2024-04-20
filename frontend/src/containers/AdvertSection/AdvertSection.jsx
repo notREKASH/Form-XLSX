@@ -10,7 +10,7 @@ export default function AdvertSection() {
           Prenez le temps de bien remplir le formulaire,{" "}
           <span>
             car vous êtes entièrement responsables des informations que vous
-            nous fournissez1
+            nous fournissez
           </span>
           . Si, par exemple, vous vous trompez sur le prix et que vous vous
           rendez compte de votre erreur le jour de votre départ, nous ne

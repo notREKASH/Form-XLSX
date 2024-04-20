@@ -4,7 +4,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer>
+    <footer className="footer">
       <p>
         All rights reserved &copy;{" "}
         <a

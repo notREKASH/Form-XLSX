@@ -1,6 +1,7 @@
-footer {
+.footer {
   margin: 1.5em 0 1em 0;
-  p {
+
+  & p {
     font-family: "Lato", sans-serif;
     font-size: 0.8rem;
     text-align: center;

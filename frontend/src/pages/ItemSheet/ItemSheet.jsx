@@ -43,13 +43,20 @@ export default function ItemSheet() {
     setSubmitAttempted(true);
   };
 
+  const handleChangeCgv = () => {
+    setCgv(!cgv);
+  };
+
   // Function for check empty cells
   const checkEmptyCells = () => {
     let tempEmptyCells = [];
     filteredData.forEach((row) => {
+      console.log("row", row.familleProduit);
       if (
         row.familleProduit === "" ||
+        row.familleProduit === null ||
         row.designation === "" ||
+        row.designation === null ||
         row.quantitee === null ||
         row.prix === null
       ) {
@@ -97,8 +104,12 @@ export default function ItemSheet() {
         closeOnClick: true,
         draggable: true,
       });
+
+      setDisplay(true);
     }
   };
+
+  console.log("emptyCells", emptyCells);
 
   // Vérifier si toutes les cellules sont remplies et envoyer le mail
   useEffect(() => {
@@ -108,6 +119,7 @@ export default function ItemSheet() {
         nom,
         prenom,
         email,
+        countryCode,
         phone,
         cgv
       );
@@ -164,6 +176,7 @@ export default function ItemSheet() {
         emptyCells={emptyCells}
         handleSaveSheet={handleSaveSheet}
         display={display}
+        setDisplay={setDisplay}
       />
       <AdvertSection />
       <div className="item-sheet__sendSection">
@@ -173,9 +186,9 @@ export default function ItemSheet() {
             id="cgv"
             name="cgv"
             checked={cgv}
-            onChange={(e) => setCgv(e.target.checked)}
+            onChange={handleChangeCgv}
           />
-          <label htmlFor="accept">
+          <label htmlFor="cgv">
             J’atteste sur l’honneur que les informations renseignées sont
             exactes et que je suis responsables des erreurs de saisie.
           </label>
