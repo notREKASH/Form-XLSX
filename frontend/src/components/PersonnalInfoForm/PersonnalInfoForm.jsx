@@ -6,27 +6,18 @@ export default function PersonnalInfoForm({
   setNom,
   prenom,
   setPrenom,
-  email,
-  setEmail,
+  countryCode,
+  setCountryCode,
   phone,
   setPhone,
+  email,
+  setEmail,
 }) {
   return (
     <form className="form">
-      <h3>Informations personnelles</h3>
-      <p>
-        Pour que nous puissions vous identifier, veuillez renseigner vos{" "}
-        <strong>nom</strong> et <strong>prénom</strong> ainsi que votre{" "}
-        <strong>adresse mail</strong> et votre <strong>téléphone</strong>.
-      </p>
-      <p>
-        <strong>
-          <span>Attention :</span> ces informations doivent être les mêmes que
-          celles renseignées lors de votre inscription.
-        </strong>
-      </p>
-      <div className="form--input">
-        <div>
+      <h2>Informations personnelles</h2>
+      <div className="form__input">
+        <div className="form__input__name">
           <label id="nom" htmlFor="nom">
             Nom :
           </label>
@@ -38,6 +29,7 @@ export default function PersonnalInfoForm({
             name="nom"
             id="nom"
             placeholder="Votre nom"
+            className="form__input__name--nom"
             value={nom}
             onChange={(e) => setNom(e.target.value)}
           />
@@ -46,44 +38,63 @@ export default function PersonnalInfoForm({
             name="prenom"
             id="prenom"
             placeholder="Votre prénom"
+            className="form__input__name--prenom"
             value={prenom}
             onChange={(e) => setPrenom(e.target.value)}
           />
         </div>
-        <div>
-          <label id="email" htmlFor="email">
-            Email :
+        <div className="form__input__phone">
+          <label id="country-code" htmlFor="country-code">
+            Code pays :
           </label>
           <label id="phone" htmlFor="phone">
             Téléphone :
+          </label>
+          <select
+            className="form__input__phone--country-code"
+            name="country-code"
+            id="country-code"
+            value={countryCode}
+            onChange={(e) => setCountryCode(e.target.value)}>
+            <option value="+33" selected>
+              +33
+            </option>
+            <option value="+41">+41</option>
+          </select>
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            placeholder="Numéro de téléphone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+        <div className="form__input__email">
+          <label id="email" htmlFor="email">
+            Email :
           </label>
           <input
             type="email"
             name="email"
             id="email"
             placeholder="Votre adresse mail"
+            className="form__input__email--email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            placeholder="Votre numéro de téléphone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-          />
-          <p>
-            <span>*</span> les champs marqués d&rsquo;un astérisque sont
-            obligatoires
-          </p>
         </div>
       </div>
-      <p className="form--sendMail">
-        Pour envoyer votre fiche article, cliquez sur le bouton ci-dessous. Si
-        il ne s&rsquo;affiche pas, ou qu&rsquo;il est désactivé, vérifiez que
-        vous avez bien rempli les champs ci-dessus, et que vous avez ajouté au
-        moins une ligne dans le tableau d&rsquo;article.
+      <p>
+        Pour que nous puissions vous identifier, veuillez renseigner vos{" "}
+        <strong>nom</strong> et <strong>prénom</strong> ainsi que votre{" "}
+        <strong>adresse mail</strong> et votre <strong>téléphone</strong>.
+      </p>
+      <p>
+        <strong>
+          <span>Attention :</span> ces informations doivent être les mêmes que
+          celles renseignées lors de votre inscription.
+        </strong>
       </p>
     </form>
   );
@@ -94,8 +105,10 @@ PersonnalInfoForm.propTypes = {
   setNom: PropTypes.func.isRequired,
   prenom: PropTypes.string.isRequired,
   setPrenom: PropTypes.func.isRequired,
-  email: PropTypes.string.isRequired,
-  setEmail: PropTypes.func.isRequired,
+  countryCode: PropTypes.string.isRequired,
+  setCountryCode: PropTypes.func.isRequired,
   phone: PropTypes.string.isRequired,
   setPhone: PropTypes.func.isRequired,
+  email: PropTypes.string.isRequired,
+  setEmail: PropTypes.func.isRequired,
 };

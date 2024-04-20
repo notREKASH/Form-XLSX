@@ -7,8 +7,11 @@ import "./FormContainer.scss";
 import PersonnalInfoForm from "../../components/PersonnalInfoForm/PersonnalInfoForm";
 import isCellEditable from "../../helpers/isCellEditable";
 import { toast } from "react-toastify";
+import SaveToLater from "../../components/SaveToLater/SaveToLater";
+import ImportData from "../../components/ImportData/ImportData";
 
 export default function FormContainer() {
+  const [display, setDisplay] = useState(false);
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const [emptyCells, setEmptyCells] = useState([]);
   const [rowData, setRowData] = useState([
@@ -142,7 +145,11 @@ export default function FormContainer() {
   // Fonction pour envoyer le mail
   const handleSendMail = async () => {
     setSubmitAttempted(false);
-    // Vérifier si les cellules sont vides
+    checkEmptyCells();
+    setSubmitAttempted(true);
+  };
+
+  const checkEmptyCells = () => {
     let tempEmptyCells = [];
     filteredData.forEach((row) => {
       if (
@@ -156,7 +163,6 @@ export default function FormContainer() {
     });
 
     setEmptyCells(tempEmptyCells);
-    setSubmitAttempted(true);
 
     if (tempEmptyCells.length > 0) {
       toast.error("Vous avez des cellules vides, veuillez les remplir.", {
@@ -168,6 +174,8 @@ export default function FormContainer() {
       });
       return;
     }
+
+    return tempEmptyCells;
   };
 
   // Vérifier si le nombre d'articles est supérieur à 30 ou 50
@@ -234,6 +242,14 @@ export default function FormContainer() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emptyCells, submitAttempted]);
 
+  // Vérifier si une fiches articles est déjà enregistrée
+  useEffect(() => {
+    const savedData = JSON.parse(localStorage.getItem("rowData"));
+    if (savedData) {
+      setDisplay(true);
+    }
+  }, []);
+
   return (
     <>
       <div className="ag-theme-quartz" style={{ height: 500, width: "100%" }}>
@@ -252,6 +268,24 @@ export default function FormContainer() {
             Ajouter une ligne
           </button>
         </div>
+        {filteredData.length > 0 && (
+          <div className="form-container__save">
+            {display && (
+              <>
+                <ImportData setRowData={setRowData} setIsSaved={setDisplay} />
+              </>
+            )}
+            {!display && (
+              <>
+                <SaveToLater
+                  rowData={filteredData}
+                  checkEmptyCells={checkEmptyCells}
+                  setIsSaved={setDisplay}
+                />
+              </>
+            )}
+          </div>
+        )}
         <PersonnalInfoForm
           nom={nom}
           setNom={setNom}

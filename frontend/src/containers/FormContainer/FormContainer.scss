@@ -38,6 +38,15 @@
     }
   }
 
+  &__save {
+    border-top: 1px solid black;
+    padding-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+  }
+
   &__legal {
     margin-top: 1em;
   }
