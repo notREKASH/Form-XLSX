@@ -18,5 +18,11 @@
       font-size: 0.95rem;
       color: $color-secondary;
     }
+
+    &__error {
+      color: red;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
   }
 }

@@ -8,7 +8,8 @@ export const importSheet = (setRowData, toast) => {
 
 export const deleteSheet = (setRowData, setDisplay, toast) => {
   localStorage.removeItem("sheetData");
-  toast.success("Fiche supprimée");
+  localStorage.removeItem("tempSheetData");
+  toast.success("Fiche supprimée avec succès");
   setRowData([
     {
       id: "exemple",

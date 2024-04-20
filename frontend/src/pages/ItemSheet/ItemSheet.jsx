@@ -180,6 +180,13 @@ export default function ItemSheet() {
           onClick={handleSendMail}>
           Envoyez votre fiche article
         </button>
+        {isDesactivated(user) && (
+          <p className="item-sheet__sendSection__error">
+            Si le bouton est désactivé, veuillez vérifier que tous les champs
+            sont remplis et que vous avez accepté les conditions générales
+            d&rsquo;utilisation.
+          </p>
+        )}
       </div>
     </section>
   );

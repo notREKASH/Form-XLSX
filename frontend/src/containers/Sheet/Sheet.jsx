@@ -12,6 +12,8 @@ import "./Sheet.scss";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { deleteSheet, importSheet } from "../../utils/sheetOperations";
+import saveToLocalStorage from "../../utils/saveToLocalSstorage";
+import loadFromLocalStorage from "../../utils/loadFromLocalStorage";
 
 export default function Sheet({
   setData,
@@ -130,12 +132,36 @@ export default function Sheet({
   const handleImport = () => importSheet(setRowData, toast);
   const handleDelete = () => deleteSheet(setRowData, setDisplay, toast);
 
+  // Filtered rowData
+  const filteredData = rowData.filter((data) => data.id !== "exemple");
+
+  const handleSaveTemp = () => {
+    if (filteredData.length > 0) {
+      saveToLocalStorage("tempSheetData", filteredData);
+    }
+  };
+
   useEffect(() => {
     setData(rowData);
   }, [rowData, setData]);
 
-  // Filtered rowData
-  const filteredData = rowData.filter((data) => data.id !== "exemple");
+  useEffect(() => {
+    const data = loadFromLocalStorage("tempSheetData");
+    if (data) {
+      setRowData(data);
+      toast.info("Votre fiche a été restaurée", { autoClose: 5000 });
+    } else {
+      setRowData([
+        {
+          id: "exemple",
+          familleProduit: "Vêtement homme",
+          designation: "T-shirt nike, blanc et rouge, taille M",
+          quantitee: 1,
+          prix: 15,
+        },
+      ]);
+    }
+  }, [setRowData]);
 
   return (
     <div className="sheet">
@@ -151,7 +177,7 @@ export default function Sheet({
           <div className="form-container__btns__fl">
             <div className="form-container__btns__fl__help">
               <img src={DocIco} alt="Icon document" />
-              <Link to="/app-usage">
+              <Link to="/app-usage" onClick={handleSaveTemp}>
                 <button>Comment remplir la fiche ?</button>
               </Link>
             </div>
