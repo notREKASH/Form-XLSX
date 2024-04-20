@@ -5,17 +5,42 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import AdvertSection from "../../containers/AdvertSection/AdvertSection";
 import exportToExcelAndSendEmail from "../../components/SendMailXlsx/SendMailXlsx";
+import isDesactivated from "../../utils/isDesactivated";
+import checkEmptyCells from "../../utils/checkEmptyCells";
 
 export default function ItemSheet() {
   const [emptyCells, setEmptyCells] = useState([]);
-  const [rowData, setRowData] = useState([]);
+  const [rowData, setRowData] = useState([
+    {
+      id: "exemple",
+      familleProduit: "Vêtement homme",
+      designation: "T-shirt nike, blanc et rouge, taille M",
+      quantitee: 1,
+      prix: 15,
+    },
+  ]);
   const [submitAttempted, setSubmitAttempted] = useState(false);
+
+  // User data
   const [nom, setNom] = useState("");
   const [prenom, setPrenom] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [countryCode, setCountryCode] = useState("+33");
   const [cgv, setCgv] = useState(false);
+
+  //   Filtered rowData
+  const filteredData = rowData.filter((data) => data.id !== "exemple");
+
+  const user = {
+    filteredData,
+    nom,
+    prenom,
+    email,
+    phone,
+    cgv,
+  };
+
   const [display, setDisplay] = useState(false);
 
   // Function for stable data
@@ -24,60 +49,16 @@ export default function ItemSheet() {
     setRowData(newData);
   }, []);
 
-  //   Filtered rowData
-  const filteredData = rowData.filter((data) => data.id !== "exemple");
-
-  //   Check if the user has accepted the terms and conditions
-  const isDesactivated =
-    filteredData.length === 0 ||
-    nom === "" ||
-    prenom === "" ||
-    email === "" ||
-    phone === "" ||
-    !cgv;
-
-  // Fonction pour envoyer le mail
+  // Function for send mail
   const handleSendMail = async () => {
     setSubmitAttempted(false);
-    checkEmptyCells();
+    const emptyCells = checkEmptyCells(filteredData);
+    setEmptyCells(emptyCells);
     setSubmitAttempted(true);
   };
 
   const handleChangeCgv = () => {
     setCgv(!cgv);
-  };
-
-  // Function for check empty cells
-  const checkEmptyCells = () => {
-    let tempEmptyCells = [];
-    filteredData.forEach((row) => {
-      console.log("row", row.familleProduit);
-      if (
-        row.familleProduit === "" ||
-        row.familleProduit === null ||
-        row.designation === "" ||
-        row.designation === null ||
-        row.quantitee === null ||
-        row.prix === null
-      ) {
-        tempEmptyCells.push(row.id);
-      }
-    });
-
-    setEmptyCells(tempEmptyCells);
-
-    if (tempEmptyCells.length > 0) {
-      toast.error("Vous avez des cellules vides, veuillez les remplir.", {
-        position: "top-center",
-        autoClose: 10000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        draggable: true,
-      });
-      return;
-    }
-
-    return tempEmptyCells;
   };
 
   // Function for save sheet
@@ -93,7 +74,7 @@ export default function ItemSheet() {
       return;
     }
 
-    checkEmptyCells();
+    checkEmptyCells(filteredData);
 
     if (emptyCells.length === 0) {
       localStorage.setItem("sheetData", JSON.stringify(filteredData));
@@ -108,8 +89,6 @@ export default function ItemSheet() {
       setDisplay(true);
     }
   };
-
-  console.log("emptyCells", emptyCells);
 
   // Vérifier si toutes les cellules sont remplies et envoyer le mail
   useEffect(() => {
@@ -173,6 +152,8 @@ export default function ItemSheet() {
       />
       <Sheet
         setData={stableData}
+        rowData={rowData}
+        setRowData={setRowData}
         emptyCells={emptyCells}
         handleSaveSheet={handleSaveSheet}
         display={display}
@@ -194,7 +175,7 @@ export default function ItemSheet() {
           </label>
         </div>
         <button
-          disabled={isDesactivated}
+          disabled={isDesactivated(user)}
           className={`form-container--export`}
           onClick={handleSendMail}>
           Envoyez votre fiche article
