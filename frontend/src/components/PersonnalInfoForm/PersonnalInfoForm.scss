@@ -5,8 +5,8 @@
   display: flex;
   flex-direction: column;
   gap: 1em;
-  width: 95%;
-  margin: 0 auto;
+  max-width: 1002px;
+  @include center;
 
   h2 {
     font-size: 1.2rem;

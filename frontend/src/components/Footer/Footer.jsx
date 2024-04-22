@@ -13,6 +13,8 @@ export default function Footer() {
           target="_blank">
           Chez Valérie - {currentYear}
         </a>
+        <br />
+        Immatriculé au RCS de Besançon sous le numéro 977 456 664
       </p>
     </footer>
   );

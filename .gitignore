@@ -3,5 +3,6 @@
 # dependencies
 frontend/node_modules
 frontend/.env*.local
+frontend/src/assets/images/png
 backend/node_modules
 backend/.env

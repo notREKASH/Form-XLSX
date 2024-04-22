@@ -1,8 +1,13 @@
 @import "../../assets/styles/variables.scss";
 
+@mixin icon-size {
+  width: 1.2em;
+  height: 1.2em;
+}
+
 .sheet {
-  width: 95%;
-  margin: 0 auto;
+  max-width: 1002px;
+  @include center;
 }
 
 .delete-button {
@@ -12,7 +17,7 @@
 }
 
 .cellule-rouge {
-  background-color: rgb(255, 4, 4);
+  background-color: $required-color;
 }
 
 .form-container {
@@ -60,16 +65,21 @@
         border-radius: 0.5em;
         padding: 0.2em;
         cursor: help;
+        color: white;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: #940000;
+        }
 
         a {
-          color: white;
           text-decoration: none;
           font-weight: bold;
+          cursor: help;
         }
 
         img {
-          width: 1.2em;
-          height: 1.2em;
+          @include icon-size;
         }
 
         button {
@@ -77,6 +87,7 @@
           background-color: transparent;
           font-weight: bold;
           color: white;
+          cursor: help;
         }
       }
 
@@ -99,14 +110,8 @@
         }
 
         &--addLine {
-          padding: 0.5em;
-          width: fit-content;
-          border: none;
+          @include button;
           background-color: #4e3524;
-          color: white;
-          font-weight: bold;
-          border-radius: 0.5em;
-          cursor: pointer;
 
           &:hover {
             background-color: #e5e5e5;
@@ -136,19 +141,12 @@
       }
 
       img {
-        width: 1.2em;
-        height: 1.2em;
+        @include icon-size;
       }
 
       button {
-        padding: 0.5em;
-        width: fit-content;
-        border: none;
+        @include button;
         background-color: $color-tertiary;
-        color: white;
-        font-weight: bold;
-        border-radius: 0.5em;
-        cursor: pointer;
 
         &:hover {
           background-color: #e5e5e5;
@@ -198,19 +196,12 @@
       }
 
       img {
-        width: 1.2em;
-        height: 1.2em;
+        @include icon-size;
       }
 
       button {
-        padding: 0.5em;
-        width: fit-content;
-        border: none;
+        @include button;
         background-color: $color-tertiary;
-        color: white;
-        font-weight: bold;
-        border-radius: 0.5em;
-        cursor: pointer;
 
         &:hover {
           background-color: #e5e5e5;
@@ -234,16 +225,10 @@
   }
 
   &--export {
-    padding: 0.5em;
+    @include button;
     width: 100%;
-    border: none;
     background-color: #0c7a02;
-    color: white;
-    font-weight: bold;
-    border-radius: 0.5em;
     font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
 
     &::before {
       content: "✉️";

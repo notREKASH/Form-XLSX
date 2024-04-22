@@ -1,10 +1,11 @@
 @import "../../assets/styles/variables.scss";
 
 .advert-section {
-  background-color: #4e3524;
+  background-color: $color-secondary;
 
   &--container {
-    width: 95%;
+    @include center;
+    max-width: 1002px;
     margin: 2em auto;
     display: flex;
     flex-direction: column;

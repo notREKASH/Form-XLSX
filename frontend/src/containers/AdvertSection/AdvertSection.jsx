@@ -1,4 +1,4 @@
-import AdvertImg from "../../assets/images/avertissement final.png";
+import AdvertImg from "../../assets/images/avertissement final.webp";
 import "./AdvertSection.scss";
 
 export default function AdvertSection() {

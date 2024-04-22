@@ -29,7 +29,7 @@ export default function ItemSheet() {
   const [countryCode, setCountryCode] = useState("+33");
   const [cgv, setCgv] = useState(false);
 
-  //   Filtered rowData
+  // Filtered rowData
   const filteredData = rowData.filter((data) => data.id !== "exemple");
 
   const user = {
@@ -44,7 +44,6 @@ export default function ItemSheet() {
   const [display, setDisplay] = useState(false);
 
   // Function for stable data
-
   const stableData = useCallback((newData) => {
     setRowData(newData);
   }, []);
@@ -74,9 +73,10 @@ export default function ItemSheet() {
       return;
     }
 
-    checkEmptyCells(filteredData);
+    const tempEmptyCells = checkEmptyCells(filteredData);
+    setEmptyCells(tempEmptyCells);
 
-    if (emptyCells.length === 0) {
+    if (tempEmptyCells.length === 0) {
       localStorage.setItem("sheetData", JSON.stringify(filteredData));
       toast.success("Votre fiche article a bien été enregistrée.", {
         position: "top-center",
@@ -90,7 +90,7 @@ export default function ItemSheet() {
     }
   };
 
-  // Vérifier si toutes les cellules sont remplies et envoyer le mail
+  // Send mail if no empty cells are found
   useEffect(() => {
     if (emptyCells.length === 0 && submitAttempted) {
       const result = exportToExcelAndSendEmail(
@@ -128,7 +128,7 @@ export default function ItemSheet() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emptyCells, submitAttempted]);
 
-  // Vérifier si une fiches articles est déjà enregistrée
+  // Display contact information if data is saved
   useEffect(() => {
     const savedData = JSON.parse(localStorage.getItem("sheetData"));
     if (savedData) {

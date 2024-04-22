@@ -6,10 +6,8 @@
   gap: 2em;
 
   &__sendSection {
-    width: 100%;
-
-    max-width: 95%;
-    margin: 0 auto;
+    @include center;
+    max-width: 1002px;
     display: flex;
     flex-direction: column;
     gap: 1em;
@@ -20,7 +18,7 @@
     }
 
     &__error {
-      color: red;
+      color: $required-color;
       font-size: 0.9rem;
       font-style: italic;
     }

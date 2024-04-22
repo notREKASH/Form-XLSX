@@ -1,11 +1,11 @@
 @import "../../assets/styles/variables.scss";
 
 .app-usage {
+  @include center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   color: $color-secondary;
-  width: 95%;
   margin: 1.5em auto;
   gap: 1em;
 

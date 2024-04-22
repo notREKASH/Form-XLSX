@@ -37,7 +37,7 @@ export default function AppUsage() {
           <ul className="app-usage__explication--liste">
             {explication.map((item) => (
               <li key={item.id}>
-                <strong>{item.title}. </strong>
+                <strong>{item.title} </strong>
                 {item.text}
               </li>
             ))}
