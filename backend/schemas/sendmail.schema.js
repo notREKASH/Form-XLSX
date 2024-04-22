@@ -13,6 +13,9 @@ const sendmailSchema = Joi.object({
     "string.empty": "L'email est obligatoire",
     "string.email": "L'email doit être valide",
   }),
+  countryCode: Joi.string().required().messages({
+    "string.empty": "L'indicatif téléphonique pays est obligatoire",
+  }),
   phone: Joi.number().required().messages({
     "number.base": "Le téléphone doit être composé de chiffres",
     "number.empty": "Le téléphone est obligatoire",

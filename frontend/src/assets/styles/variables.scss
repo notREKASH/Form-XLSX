@@ -1,6 +1,37 @@
-// Color
+// Font
+$font-family: "Lato", sans-serif;
 
+// Margin and Centering
+@mixin center {
+  width: 95%;
+  margin: 0 auto;
+}
+
+// Color
 $color-primary: #f5e6c4;
-$color-secondary: #000000;
+$color-secondary: #4e3524;
 $color-tertiary: #040d61;
-$required-color: #8b0000;
+$required-color: #ff0000;
+
+// Button
+@mixin button {
+  padding: 0.5em;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+// Label and h1 invisible
+@mixin text-invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

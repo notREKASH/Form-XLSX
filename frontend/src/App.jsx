@@ -1,26 +1,22 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.scss";
-import ArticleForm from "./pages/ArticleForm/ArticleForm";
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import ItemSheet from "./pages/ItemSheet/ItemSheet";
+import { Route, Routes } from "react-router-dom";
+import AppUsage from "./pages/AppUsage/AppUsage";
 
 function App() {
-  const currentYear = new Date().getFullYear();
-
   return (
     <>
+      <Header />
       <ToastContainer />
-      <ArticleForm />
-      <footer>
-        <p>
-          All rights reserved &copy;{" "}
-          <a
-            href="https://www.chezvalerie-videgrenier.fr"
-            rel="noreferrer"
-            target="_blank">
-            Chez Valérie - {currentYear}
-          </a>
-        </p>
-      </footer>
+      <Routes>
+        <Route path="/" element={<ItemSheet />} />
+        <Route path="/app-usage" element={<AppUsage />} />
+      </Routes>
+      <Footer />
     </>
   );
 }

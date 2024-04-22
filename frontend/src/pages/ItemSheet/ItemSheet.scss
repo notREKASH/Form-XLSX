@@ -1,0 +1,30 @@
+@import "../../assets/styles/variables.scss";
+
+.item-sheet {
+  h1 {
+    @include text-invisible;
+  }
+
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+
+  &__sendSection {
+    @include center;
+    max-width: 1002px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    label {
+      font-size: 0.95rem;
+      color: $color-secondary;
+    }
+
+    &__error {
+      color: $required-color;
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+@import "../../assets/styles/variables.scss";
+
+.footer {
+  margin: 1.5em 0 1em 0;
+
+  & p {
+    font-family: $font-family;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}

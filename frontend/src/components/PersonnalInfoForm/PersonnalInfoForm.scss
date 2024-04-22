@@ -1,20 +1,20 @@
 @import "../../assets/styles/variables.scss";
 
 .form {
-  border-top: 1px solid black;
-  padding-top: 1em;
+  padding-top: 2em;
   display: flex;
   flex-direction: column;
   gap: 1em;
-  text-align: center;
+  max-width: 1002px;
+  @include center;
 
-  h3 {
-    font-size: 1.1rem;
+  h2 {
+    font-size: 1.2rem;
     font-weight: 600;
-    margin-bottom: 1em;
   }
 
   p {
+    font-size: 0.95rem;
     strong {
       font-weight: 600;
 
@@ -24,56 +24,92 @@
     }
   }
 
-  &--input {
-    div {
-      margin-top: 1em;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      column-gap: 1em;
-      row-gap: 0.5em;
+  &__input {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    column-gap: 1em;
+    row-gap: 0.5em;
 
-      p {
-        span {
-          font-weight: bold;
-          color: $required-color;
+    label {
+      @include text-invisible;
+
+      &::after {
+        content: " *";
+        color: $required-color;
+      }
+    }
+
+    &__name,
+    &__email,
+    &__phone {
+      display: flex;
+      gap: 1em;
+    }
+
+    &__phone {
+      display: flex;
+      gap: 0.5em;
+
+      &--countryCode {
+        width: 30%;
+      }
+    }
+
+    &__name {
+      &--nom {
+        text-transform: uppercase;
+
+        &::placeholder {
+          text-transform: none;
         }
-
-        grid-column: 1 / -1;
-        font-size: 0.8rem;
-        font-style: italic;
-        text-align: left;
       }
 
-      label {
-        font-weight: 600;
-        text-align: left;
+      &--prenom {
+        text-transform: capitalize;
 
-        &::after {
-          content: " *";
-          color: $required-color;
-        }
-      }
-
-      input {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 0.75em 0.5em;
-        border: none;
-        border-radius: 0.5em;
-        background-color: #ffffff;
-        transition: all 0.2s ease-in-out;
-
-        &:focus {
-          outline: none;
-          background-color: $color-tertiary;
-          color: white;
+        &::placeholder {
+          text-transform: none;
         }
       }
     }
+
+    &__email {
+      &--email {
+        text-transform: lowercase;
+
+        &::placeholder {
+          text-transform: none;
+        }
+      }
+    }
+
+    input,
+    select {
+      box-sizing: border-box;
+      padding: 0.75em 0.5em;
+      border: none;
+      border-radius: 0.5em;
+      background-color: #ffffff;
+    }
+
+    input {
+      width: 100%;
+      &:focus {
+        outline: 2px solid $color-tertiary;
+        color: $color-tertiary;
+      }
+    }
+  }
+}
+
+p {
+  span {
+    font-weight: bold;
+    color: $required-color;
   }
 
-  &--sendMail {
-    padding-top: 1em;
-    border-top: 1px solid black;
-  }
+  grid-column: 1 / -1;
+  font-size: 0.8rem;
+  font-style: italic;
+  text-align: left;
 }

@@ -1,0 +1,249 @@
+@import "../../assets/styles/variables.scss";
+
+@mixin icon-size {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.sheet {
+  max-width: 1002px;
+  @include center;
+}
+
+.delete-button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.cellule-rouge {
+  background-color: $required-color;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+
+  &--mobileInfo {
+    font-size: 0.95rem;
+    font-style: italic;
+    margin-bottom: 0.5em;
+
+    span {
+      font-style: normal;
+    }
+  }
+
+  &__btns {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0.5em;
+
+    @media (min-width: 1002px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    &__fl {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.3em;
+      padding: 0.3em;
+      background-color: white;
+      border-radius: 0.5em;
+
+      @media (min-width: 520px) {
+        background-color: transparent;
+        padding: 0;
+      }
+
+      &__help {
+        display: flex;
+        align-items: center;
+        gap: 0.2em;
+        background-color: red;
+        border-radius: 0.5em;
+        padding: 0.2em;
+        cursor: help;
+        color: white;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+          background-color: #940000;
+        }
+
+        a {
+          text-decoration: none;
+          font-weight: bold;
+          cursor: help;
+        }
+
+        img {
+          @include icon-size;
+        }
+
+        button {
+          border: none;
+          background-color: transparent;
+          font-weight: bold;
+          color: white;
+          cursor: help;
+        }
+      }
+
+      &__info {
+        p {
+          display: none;
+
+          @media (min-width: 520px) {
+            display: block;
+          }
+        }
+
+        @media (min-width: 520px) {
+          display: flex;
+          align-items: center;
+          gap: 0.5em;
+          padding: 0.3em;
+          border-radius: 0.5em;
+          background-color: white;
+        }
+
+        &--addLine {
+          @include button;
+          background-color: #4e3524;
+
+          &:hover {
+            background-color: #e5e5e5;
+            color: black;
+          }
+        }
+      }
+    }
+
+    &__sl {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: white;
+      border-radius: 0.5em;
+      padding: 0.3em;
+      gap: 0.5em;
+
+      .space {
+        @media (min-width: 470px) {
+          display: none;
+        }
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+
+      img {
+        @include icon-size;
+      }
+
+      button {
+        @include button;
+        background-color: $color-tertiary;
+
+        &:hover {
+          background-color: #e5e5e5;
+          color: black;
+        }
+      }
+    }
+
+    &__tl {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-radius: 0.5em;
+      gap: 0.5em;
+
+      @media (min-width: 520px) {
+        flex-direction: row;
+      }
+
+      &__import,
+      &__delete {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-radius: 0.5em;
+        padding: 0.3em;
+        gap: 0.5em;
+      }
+
+      &__import {
+        background-color: white;
+      }
+
+      &__delete {
+        background-color: #ff0000;
+        color: white;
+      }
+
+      .space {
+        @media (min-width: 470px) {
+          display: none;
+        }
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+
+      img {
+        @include icon-size;
+      }
+
+      button {
+        @include button;
+        background-color: $color-tertiary;
+
+        &:hover {
+          background-color: #e5e5e5;
+          color: black;
+        }
+      }
+    }
+  }
+
+  &__save {
+    border-top: 1px solid black;
+    padding-top: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+  }
+
+  &__legal {
+    margin-top: 1em;
+  }
+
+  &--export {
+    @include button;
+    width: 100%;
+    background-color: #0c7a02;
+    font-size: 1rem;
+
+    &::before {
+      content: "✉️";
+      margin-right: 0.5em;
+    }
+
+    &:disabled {
+      background-color: #e5e5e5;
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &::before {
+        content: "🚫";
+        margin-right: 0.5em;
+      }
+    }
+  }
+}
