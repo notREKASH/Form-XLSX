@@ -14,7 +14,6 @@ $color-tertiary: #040d61;
 $required-color: #ff0000;
 
 // Button
-
 @mixin button {
   padding: 0.5em;
   border: none;
@@ -23,4 +22,16 @@ $required-color: #ff0000;
   border-radius: 0.5em;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+}
+
+// Label and h1 invisible
+@mixin text-invisible {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }

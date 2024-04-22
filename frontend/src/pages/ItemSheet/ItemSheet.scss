@@ -1,5 +1,9 @@
 @import "../../assets/styles/variables.scss";
 
+h1 {
+  @include text-invisible;
+}
+
 .item-sheet {
   display: flex;
   flex-direction: column;

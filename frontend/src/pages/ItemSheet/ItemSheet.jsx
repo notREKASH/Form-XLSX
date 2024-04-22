@@ -137,57 +137,60 @@ export default function ItemSheet() {
   }, []);
 
   return (
-    <section className="item-sheet">
-      <PersonnalInfoForm
-        nom={nom}
-        setNom={setNom}
-        prenom={prenom}
-        setPrenom={setPrenom}
-        countryCode={countryCode}
-        setCountryCode={setCountryCode}
-        email={email}
-        setEmail={setEmail}
-        phone={phone}
-        setPhone={setPhone}
-      />
-      <Sheet
-        setData={stableData}
-        rowData={rowData}
-        setRowData={setRowData}
-        emptyCells={emptyCells}
-        handleSaveSheet={handleSaveSheet}
-        display={display}
-        setDisplay={setDisplay}
-      />
-      <AdvertSection />
-      <div className="item-sheet__sendSection">
-        <div>
-          <input
-            type="checkbox"
-            id="cgv"
-            name="cgv"
-            checked={cgv}
-            onChange={handleChangeCgv}
-          />
-          <label htmlFor="cgv">
-            J’atteste sur l’honneur que les informations renseignées sont
-            exactes et que je suis responsables des erreurs de saisie.
-          </label>
+    <>
+      <h1>Fiche article - Chez Valérie</h1>
+      <section className="item-sheet">
+        <PersonnalInfoForm
+          nom={nom}
+          setNom={setNom}
+          prenom={prenom}
+          setPrenom={setPrenom}
+          countryCode={countryCode}
+          setCountryCode={setCountryCode}
+          email={email}
+          setEmail={setEmail}
+          phone={phone}
+          setPhone={setPhone}
+        />
+        <Sheet
+          setData={stableData}
+          rowData={rowData}
+          setRowData={setRowData}
+          emptyCells={emptyCells}
+          handleSaveSheet={handleSaveSheet}
+          display={display}
+          setDisplay={setDisplay}
+        />
+        <AdvertSection />
+        <div className="item-sheet__sendSection">
+          <div>
+            <input
+              type="checkbox"
+              id="cgv"
+              name="cgv"
+              checked={cgv}
+              onChange={handleChangeCgv}
+            />
+            <label htmlFor="cgv">
+              J’atteste sur l’honneur que les informations renseignées sont
+              exactes et que je suis responsables des erreurs de saisie.
+            </label>
+          </div>
+          <button
+            disabled={isDesactivated(user)}
+            className={`form-container--export`}
+            onClick={handleSendMail}>
+            Envoyez votre fiche article
+          </button>
+          {isDesactivated(user) && (
+            <p className="item-sheet__sendSection__error">
+              Si le bouton est désactivé, veuillez vérifier que tous les champs
+              sont remplis et que vous avez accepté les conditions générales
+              d&rsquo;utilisation.
+            </p>
+          )}
         </div>
-        <button
-          disabled={isDesactivated(user)}
-          className={`form-container--export`}
-          onClick={handleSendMail}>
-          Envoyez votre fiche article
-        </button>
-        {isDesactivated(user) && (
-          <p className="item-sheet__sendSection__error">
-            Si le bouton est désactivé, veuillez vérifier que tous les champs
-            sont remplis et que vous avez accepté les conditions générales
-            d&rsquo;utilisation.
-          </p>
-        )}
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

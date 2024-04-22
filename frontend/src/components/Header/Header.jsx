@@ -1,4 +1,4 @@
-import Logo from "../../assets/images/logo-chez-valerie.webp";
+import Logo from "../../assets/images/logo-chez-valerie.avif";
 import BackArrow from "../../assets/images/back-arrow.webp";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";

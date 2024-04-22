@@ -31,7 +31,7 @@
     row-gap: 0.5em;
 
     label {
-      display: none;
+      @include text-invisible;
 
       &::after {
         content: " *";

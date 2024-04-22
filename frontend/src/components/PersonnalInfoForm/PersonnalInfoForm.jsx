@@ -18,12 +18,8 @@ export default function PersonnalInfoForm({
       <h2>Informations personnelles</h2>
       <div className="form__input">
         <div className="form__input__name">
-          <label id="nom" htmlFor="nom">
-            Nom :
-          </label>
-          <label id="prenom" htmlFor="prenom">
-            Prénom :
-          </label>
+          <label htmlFor="nom">Nom :</label>
+          <label htmlFor="prenom">Prénom :</label>
           <input
             type="text"
             name="nom"
@@ -32,6 +28,7 @@ export default function PersonnalInfoForm({
             className="form__input__name--nom"
             value={nom}
             onChange={(e) => setNom(e.target.value)}
+            autoComplete="family-name"
           />
           <input
             type="text"
@@ -41,24 +38,19 @@ export default function PersonnalInfoForm({
             className="form__input__name--prenom"
             value={prenom}
             onChange={(e) => setPrenom(e.target.value)}
+            autoComplete="given-name"
           />
         </div>
         <div className="form__input__phone">
-          <label id="country-code" htmlFor="country-code">
-            Code pays :
-          </label>
-          <label id="phone" htmlFor="phone">
-            Téléphone :
-          </label>
+          <label htmlFor="country-code">Code pays :</label>
+          <label htmlFor="phone">Téléphone :</label>
           <select
             className="form__input__phone--country-code"
             name="country-code"
             id="country-code"
             value={countryCode}
             onChange={(e) => setCountryCode(e.target.value)}>
-            <option value="+33" selected>
-              +33
-            </option>
+            <option value="+33">+33</option>
             <option value="+41">+41</option>
           </select>
           <input
@@ -68,12 +60,11 @@ export default function PersonnalInfoForm({
             placeholder="Numéro de téléphone"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
+            autoComplete="off"
           />
         </div>
         <div className="form__input__email">
-          <label id="email" htmlFor="email">
-            Email :
-          </label>
+          <label htmlFor="email">Email :</label>
           <input
             type="email"
             name="email"
@@ -82,6 +73,7 @@ export default function PersonnalInfoForm({
             className="form__input__email--email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            autoComplete="email"
           />
         </div>
       </div>
