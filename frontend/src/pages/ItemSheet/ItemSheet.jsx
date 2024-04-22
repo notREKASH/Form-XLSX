@@ -138,8 +138,8 @@ export default function ItemSheet() {
 
   return (
     <>
-      <h1>Fiche article - Chez Valérie</h1>
       <section className="item-sheet">
+        <h1>Fiche article - Chez Valérie</h1>
         <PersonnalInfoForm
           nom={nom}
           setNom={setNom}

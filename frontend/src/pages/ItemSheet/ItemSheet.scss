@@ -1,10 +1,10 @@
 @import "../../assets/styles/variables.scss";
 
-h1 {
-  @include text-invisible;
-}
-
 .item-sheet {
+  h1 {
+    @include text-invisible;
+  }
+
   display: flex;
   flex-direction: column;
   gap: 2em;

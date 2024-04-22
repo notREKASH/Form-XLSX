@@ -2,6 +2,7 @@
 
 .app-usage {
   @include center;
+  max-width: 1002px;
   display: flex;
   flex-direction: column;
   justify-content: center;
