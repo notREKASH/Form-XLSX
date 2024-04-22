@@ -3,7 +3,7 @@ import "./AdvertSection.scss";
 
 export default function AdvertSection() {
   return (
-    <section className="advert-section">
+    <div className="advert-section">
       <div className="advert-section--container">
         <img src={AdvertImg} alt="Avertissements et Responsabilités" />
         <p>
@@ -22,6 +22,6 @@ export default function AdvertSection() {
           ou en cas de litige.
         </p>
       </div>
-    </section>
+    </div>
   );
 }
