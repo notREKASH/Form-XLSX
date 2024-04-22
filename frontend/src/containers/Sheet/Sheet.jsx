@@ -191,26 +191,40 @@ export default function Sheet({
             </div>
           </div>
           {display ? (
-            <div className="form-container__btns__tl">
-              <div className="form-container__btns__tl__import">
-                <img src={ImportIco} alt="Icon question" />
-                <p>Vous avez une fiche enregistrée</p>
+            <>
+              <div className="form-container__btns__tl">
+                <div className="form-container__btns__tl__import">
+                  <img src={ImportIco} alt="Icon question" />
+                  <p>Vous avez une fiche enregistrée</p>
+                  <button
+                    className="form-container__info--addLine"
+                    onClick={handleImport}>
+                    Importer
+                  </button>
+                </div>
+                <div className="form-container__btns__tl__delete">
+                  <img src={DeleteIco} alt="Icon question" />
+                  <p>Elle n&rsquo;est plus d&rsquo;actualité ?</p>
+                  <button
+                    className="form-container__info--addLine"
+                    onClick={handleDelete}>
+                    Supprimer
+                  </button>
+                </div>
+              </div>
+              <div className="form-container__btns__sl">
+                <img src={QuestionIco} alt="Icon question" />
+                <p>
+                  Manque de temps ? <br className="space" /> Enregistrer pour
+                  plus tard
+                </p>
                 <button
                   className="form-container__info--addLine"
-                  onClick={handleImport}>
-                  Importer
+                  onClick={handleSaveSheet}>
+                  Sauvegarder
                 </button>
               </div>
-              <div className="form-container__btns__tl__delete">
-                <img src={DeleteIco} alt="Icon question" />
-                <p>Elle n&rsquo;est plus d&rsquo;actualité ?</p>
-                <button
-                  className="form-container__info--addLine"
-                  onClick={handleDelete}>
-                  Supprimer
-                </button>
-              </div>
-            </div>
+            </>
           ) : (
             <div className="form-container__btns__sl">
               <img src={QuestionIco} alt="Icon question" />
