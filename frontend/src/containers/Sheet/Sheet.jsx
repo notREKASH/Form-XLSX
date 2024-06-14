@@ -31,6 +31,7 @@ export default function Sheet({
       field: "familleProduit",
       width: 250,
       sortable: true,
+      lockPosition: true,
       editable: isCellEditable,
       cellClassRules: {
         "cellule-rouge": (params) => {
@@ -43,12 +44,48 @@ export default function Sheet({
           }
         },
       },
+      cellEditor: "agSelectCellEditor",
+      cellEditorParams: {
+        values: [
+          "ANIMAUX",
+          "ARTICLE DE CUISINE",
+          "BEAUTE",
+          "BIJOUX",
+          "CADRES",
+          "CASSETTES VIDEO /DVD",
+          "CHAUSSURES",
+          "COLLECTION",
+          "Cycles",
+          "DECO",
+          "DISQUETTE/CD",
+          "ESTHETIQUE",
+          "HIFI/ TV",
+          "JEUX ADULTES",
+          "JEUX DE SOCIETE",
+          "JOUETS",
+          "LIVRES",
+          "LUMINAIRE",
+          "Loisirs",
+          "MAROQUINERIE",
+          "Miroir",
+          "OUTILLAGE",
+          "PETIT ELECTRO MENAGER",
+          "PETIT MOBILIER",
+          "SPORT",
+          "Tissus",
+          "VAISSELLE",
+          "VETEMENTS ADULTES",
+          "VETEMENTS BEBE",
+          "VETEMENTS ENFANTS",
+        ],
+      },
     },
     {
       headerName: "Désignation",
       width: 290,
       field: "designation",
       sortable: true,
+      lockPosition: true,
       editable: isCellEditable,
       cellClassRules: {
         "cellule-rouge": (params) => {
@@ -67,6 +104,7 @@ export default function Sheet({
       field: "quantitee",
       width: 88,
       sortable: true,
+      lockPosition: true,
       editable: isCellEditable,
       cellDataType: "number",
       cellClassRules: {
@@ -83,6 +121,7 @@ export default function Sheet({
       field: "prix",
       width: 84,
       sortable: true,
+      lockPosition: true,
       editable: isCellEditable,
       valueFormatter: (params) => {
         return `${params.value} €`;
@@ -102,6 +141,7 @@ export default function Sheet({
       field: "delete",
       width: 100,
       editable: false,
+      lockPosition: true,
       cellRenderer: (params) => (
         <button
           className="delete-button"
